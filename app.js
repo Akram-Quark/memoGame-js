@@ -27,4 +27,21 @@ const mixe = () => {
 };
 //get the randomized data ----------------------------------------------
 let randomCards = mixe();
-//create the HTML elements ---------------------------------------
+//create the HTML elements ---------------------------------------------
+randomCards.forEach((el) => {
+  let cards = document.createElement("div");
+  cards.classList = "card";
+  cards.setAttribute("id", el.id);
+  cards.setAttribute("name", el.name);
+  let front = document.createElement("img");
+  front.src = el.src;
+  front.classList = "face";
+  let back = document.createElement("div");
+  back.classList = "cover";
+  section.appendChild(cards);
+  cards.appendChild(front);
+  cards.appendChild(back);
+  cards.addEventListener("click", (e) => {
+    cards.classList.toggle("toggleCardBackw");
+  });
+});
