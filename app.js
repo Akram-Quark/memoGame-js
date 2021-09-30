@@ -1,5 +1,6 @@
 // invoking DOM elements
 const section = document.querySelector("section");
+const label = document.querySelector("h1");
 //set the dommy data ---------------------------------------------------
 const getcards = () => [
   { src: "./img/bear.jpg", id: 1, name: "bear" },
@@ -27,6 +28,33 @@ const mixe = () => {
 };
 //get the randomized data ----------------------------------------------
 let randomCards = mixe();
+//check logic -------------------------------------------------
+const maches = (ev) => {
+  var choice = ev.target;
+  choice.classList.add("clicked");
+  var flippedCards = document.querySelectorAll(".clicked");
+  choice.classList.add("clicked");
+  if (flippedCards.length === 2) {
+    if (
+      flippedCards[0].getAttribute("name") ===
+      flippedCards[1].getAttribute("name")
+    ) {
+      label.innerHTML = "good job nice memo";
+      flippedCards.forEach((item) => {
+        item.classList.remove("clicked");
+        item.style.pointerEvents = "none";
+      });
+    } else {
+      label.innerHTML = "oh no try again";
+      flippedCards.forEach((item) => {
+        item.classList.remove("clicked");
+        setTimeout(() => {
+          item.classList.remove("toggleCardBackw");
+        }, 1000);
+      });
+    }
+  }
+};
 //create the HTML elements ---------------------------------------------
 randomCards.forEach((el) => {
   let cards = document.createElement("div");
@@ -41,7 +69,9 @@ randomCards.forEach((el) => {
   section.appendChild(cards);
   cards.appendChild(front);
   cards.appendChild(back);
+  //click management-------------------------------------------------------
   cards.addEventListener("click", (e) => {
     cards.classList.toggle("toggleCardBackw");
+    maches(e);
   });
 });
